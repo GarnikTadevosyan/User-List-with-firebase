@@ -6,7 +6,8 @@ import {
   deleteCommentConstants,
   userPhotosConstants,
   editCommentsConstans,
-  addCommentsConstants, deleteUserPhotoConstants
+  addCommentsConstants,
+  deleteUserPhotoConstants
 } from '../constants/actionTypes';
 import {useState} from "react";
 

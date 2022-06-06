@@ -28,7 +28,8 @@ function getUsers() {
     dispatch(request());
     return userService.getUserList()
     .then(response => {
-      dispatch(success(response.data));
+      console.log('actionner',response);
+      dispatch(success( response.data));
     })
     .catch(function (error) {  
       dispatch(failure(error.response));

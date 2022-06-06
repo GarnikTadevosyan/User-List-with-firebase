@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import App from './App';
+import FirebaseTester from "./Testers/FirebaseTester";
 import { createTheme } from "@mui/material";
+
 
 const theme = createTheme({
   // palette: {

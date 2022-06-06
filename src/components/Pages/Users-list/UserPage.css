@@ -20,7 +20,7 @@
     background-color: #fff;
     margin: 10px;
     padding-bottom: 0;
-    width: 350px;
+    width:max-content;
     height:100%;
     box-shadow: 0px 0px /* shaxvacutyun ->*/ 10px /* cgvacutyun ->*/  10px #211E1E;
     border:2px solid gray;

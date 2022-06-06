@@ -22,12 +22,11 @@ function UserPage({ users, getUsers }) {
                             <ul>
                                <li><span>Name:</span> {user.name}</li>
                                <li><span>Email:</span> {user.email}</li>
-                               <li><span>City:</span> {user.address.city}</li>
-                               <li><span>Street:</span> {user.address.street}</li>
-                               <li><span>Suite:</span> {user.address.suite}</li>
+                               <li><span>City:</span> {user.city}</li>
+                               <li><span>Street:</span> {user.street}</li>
                                <li><span>Phone:</span> {user.phone}</li>
                                <li><span>Website:</span> {user?.website}</li>
-                               <li><span>Company: </span> {user?.company?.name}</li>
+                               <li><span>Company: </span> {user?.company}</li>
                             </ul>
                         </div>
                         <div className='user_list_btn_container'>

@@ -104,12 +104,12 @@ function UserPosts({posts, getPosts, getComments, comments, deleteComment, editC
                                         <Typography>{post.title}</Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                        {(comments.length && activePostId === post.id) ?
+                                        {(comments.length && activePostId === post.id) &&
                                             <PostComments
                                                 comments={comments}
                                                 commentEditer={commentEditer}
                                                 commentDeleter={commentDeleter}
-                                            /> : null}
+                                            /> }
                                     </AccordionDetails>
                                 </Accordion>
                             </>

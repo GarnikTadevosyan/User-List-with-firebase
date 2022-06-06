@@ -1,4 +1,7 @@
 import axios from "axios";
+import {collection,getDocs} from 'firebase/firestore';
+import {db} from "./firebaseService/firebaseConfig";
+const userCollectionHref = collection(db,'users');
 
 export const userService = {
       getUserList,
@@ -12,10 +15,14 @@ export const userService = {
       addUserComment,
 };
 
-function getUserList () {
-         return axios.get('https://jsonplaceholder.typicode.com/users')
-         .then(res => res)
+
+function getUserList ()  {
+         return getDocs(userCollectionHref)
+                .then( (users) => {
+                    return  {data:users.docs.map( (doc) => ({...doc.data()}) ) }
+                });
 }
+
 function getUserPosts (userId) { 
          return axios.get(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
         .then(res => res)

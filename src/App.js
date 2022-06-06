@@ -16,7 +16,7 @@ function App () {
     <BrowserRouter>
       <Provider store={store}>
         <div>
-        <Navbar/>
+          <Navbar/>
         <Routes>
           <Route path="" element={<HomePage/>} />
           <Route path="/users-list" element={<UserPage />} />
