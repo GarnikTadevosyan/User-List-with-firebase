@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi&display=swap');
+
+.posts_wrapper {
+    background-color:rgb(82, 73, 71);
+    height: 100%;
+    min-height: 100vh;
+}
+.post_shower {
+    display: flex;
+    justify-content:space-between;
+}
+.posts_container {
+    width:100%;
+    height: 100%;
+    min-height: 100vh;
+    padding: 10px;
+    background-color: #fff;
+}
+.post_item {
+    width:100%;
+    background-color: #fff;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+}
+.post_item img {
+    width: 100px;
+}
+.post_message {
+    font-weight: 900;
+    font-style: italic;
+}
+
+

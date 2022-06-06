@@ -1,0 +1,38 @@
+.comment_item {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.comment_item .actions_container {
+    display: flex;
+    justify-content: space-between;
+}
+.comment_item .actions_container button {
+    margin: 0px 5px 0px 5px;
+}
+.editer_button {
+    background-color: orange;
+    color: #fff;
+}
+.editer_button:hover {
+    box-shadow:0px 0px 5px 5px orange;
+}
+.deleter_button {
+    background-color: #a81119;
+    border:none;
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+}
+.deleter_button:hover {
+    box-shadow:0px 0px 5px 5px #a81119;
+}
+.comment_adding_container {
+    display: flex;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 20px;
+}

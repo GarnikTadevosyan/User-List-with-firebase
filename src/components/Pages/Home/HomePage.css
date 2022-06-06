@@ -1,0 +1,12 @@
+.home {
+    width:25%;
+    margin: 0 auto;
+    margin-top: 150px;
+    background-color:#fff;
+    padding-top: 150px;
+    text-align: center;
+}
+.home i {
+   font-size:15em;
+   color: rgb(43, 41, 40);
+}
