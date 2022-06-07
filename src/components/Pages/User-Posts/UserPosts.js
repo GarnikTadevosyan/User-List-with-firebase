@@ -1,12 +1,14 @@
 import * as React from 'react';
+import {postActions} from "../../../redux/actions";
+import {commentActions} from "../../../redux/actions";
 import {useEffect, useState} from 'react';
 import './UserPosts.css';
 import PostComments from "./PostComments/PostComments";
 import AddOrEditCmnt from "./AddOrEditCmnt/AddOrEditCmnt";
 import {useParams} from 'react-router-dom';
 import {connect} from "react-redux";
-import {userActions} from "../../../redux/actions";
-import Swal, {fire} from "sweetalert2";
+import Swal from "sweetalert2";
+import Alert_Modal from "../../Modals/sweetalert2 ";
 /*------------------MUI imports-----------------*/
 import {Accordion, AccordionSummary, AccordionDetails} from "../../MUI-Styles/MUI_Accordion";
 import Typography from '@mui/material/Typography';
@@ -36,29 +38,18 @@ function UserPosts({posts, getPosts, getComments, comments, deleteComment, editC
 
     function commentDeleter(id) {
         return (
-            Swal, fire,
-                Swal.fire(
-                    {
-                        title: 'Are you sure to delete this comment ?',
-                        text: "You won't be able to revert this!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes, delete it!'
+            Alert_Modal(id)
+            .then((result) => {
+                    if (result.isConfirmed) {
+                        deleteComment(id).then(() => {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        })
                     }
-                )
-                    .then((result) => {
-                        if (result.isConfirmed) {
-                            deleteComment(id).then(() => {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                )
-                            })
-                        }
-                    })
+                })
         )
     }
 
@@ -141,11 +132,11 @@ const mapStateToProps = state => {
 //Dispatchy kam StateProps-y karelia tal null
 
 const mapDispatchToProps = dispatch => ({
-    getPosts: (id) => dispatch(userActions.getUserPosts(id)),
-    getComments: (id) => dispatch(userActions.getUserComments(id)),
-    deleteComment: (id) => dispatch(userActions.deleteUserComment(id)),
-    editComment: (comment) => dispatch(userActions.editUserComment(comment)),
-    addComment: (comment) => dispatch(userActions.addUserComment(comment))
+    getPosts: (id) => dispatch(postActions.getUserPosts(id)),
+    getComments: (id) => dispatch(commentActions.getUserComments(id)),
+    deleteComment: (id) => dispatch(commentActions.deleteUserComment(id)),
+    editComment: (comment) => dispatch(commentActions.editUserComment(comment)),
+    addComment: (comment) => dispatch(commentActions.addUserComment(comment))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserPosts);

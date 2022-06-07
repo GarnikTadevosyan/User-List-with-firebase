@@ -20,7 +20,7 @@
     background-color: #fff;
     margin: 10px;
     padding-bottom: 0;
-    width:max-content;
+    width:350px;
     height:100%;
     box-shadow: 0px 0px /* shaxvacutyun ->*/ 10px /* cgvacutyun ->*/  10px #211E1E;
     border:2px solid gray;
@@ -39,7 +39,7 @@
     font-weight: 900;
 }
 .user_info {
-    width:80%;
+    width:90%;
     margin: 0 auto;
 }
 .user_info>ul {

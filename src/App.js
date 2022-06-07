@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Routes, Route, BrowserRouter} from "react-router-dom";
 import Navbar from './components/Navbar'
-import HomePage from './components/Pages/Home/Homepage';
+import CreateUser from './components/Pages/User-Create-Center/CreateUser';
 import UserPage from './components/Pages/Users-list/UserPage'
 import UserPosts from './components/Pages/User-Posts/UserPosts';
 import UserAlbums from './components/Pages/User-Albums/UserAlbums';
@@ -11,14 +11,13 @@ import {store} from "./redux/store";
 import './App.css';
 
 
-function App () {
-  return (
+function App () {  return (
     <BrowserRouter>
       <Provider store={store}>
         <div>
           <Navbar/>
         <Routes>
-          <Route path="" element={<HomePage/>} />
+          <Route path="" element={<CreateUser/>} />
           <Route path="/users-list" element={<UserPage />} />
           <Route path='/posts/:id' element={<UserPosts />} />
           <Route path='/albums/:id' element={<UserAlbums/>} />

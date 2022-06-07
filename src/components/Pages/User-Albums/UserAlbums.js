@@ -2,7 +2,8 @@ import * as React from 'react';
 import './UserAlbums.css'
 import {useParams} from 'react-router-dom'
 import {connect} from "react-redux";
-import {userActions} from "../../../redux/actions";
+import {albumActions} from "../../../redux/actions";
+import {photoActions} from "../../../redux/actions";
 import {useEffect, useState} from 'react';
 import AlbumPhotos from "./AlbumPhotos";
 /*------------------MUI imports-----------------*/
@@ -69,9 +70,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-    getAlbums: (id) => dispatch(userActions.getUserAlbums(id)),
-    getPhotos: (id) => dispatch(userActions.getUserPhotos(id)),
-    deletePhoto: (id) => dispatch(userActions.deleteUserPhoto(id))
+    getAlbums: (id) => dispatch(albumActions.getUserAlbums(id)),
+    getPhotos: (id) => dispatch(photoActions.getUserPhotos(id)),
+    deletePhoto: (id) => dispatch(photoActions.deleteUserPhoto(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAlbums);

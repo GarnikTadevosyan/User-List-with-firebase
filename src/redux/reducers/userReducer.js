@@ -1,15 +1,12 @@
+import {userConstants} from "../constants/1-user-Constant/userActionTypes";
+import {userPostsConstants} from "../constants/post-Constant/postActionTypes";
+import {userAlbumsConstants} from "../constants/album-Constant/albumActionTypes";
 import {
-  userConstants,
-  userPostsConstants,
-  userAlbumsConstants,
   userCommentsConstants,
   deleteCommentConstants,
-  userPhotosConstants,
-  editCommentsConstans,
-  addCommentsConstants,
-  deleteUserPhotoConstants
-} from '../constants/actionTypes';
-import {useState} from "react";
+  editCommentsConstants,
+  addCommentsConstants} from "../constants/comment-Constant/commentActionTypes";
+import {userPhotosConstants,deleteUserPhotoConstants} from "../constants/photo-Constant/photoActionTypes";
 
 const initialState = {
   loading: false,
@@ -128,11 +125,11 @@ export function userReducer(state = initialState, payload) {
       return {
         ...state
       };
-    case editCommentsConstans.EDIT_COMMENT_REQUEST:
+    case editCommentsConstants.EDIT_COMMENT_REQUEST:
       return {
         ...state
       };
-    case editCommentsConstans.EDIT_COMMENT_SUCCESS:
+    case editCommentsConstants.EDIT_COMMENT_SUCCESS:
       let editedComment = payload.comment;
       let initialComments = state.comments;
       let editedComments = initialComments.map( item => {
@@ -145,7 +142,7 @@ export function userReducer(state = initialState, payload) {
         ...state,
         comments:editedComments,
       };
-    case editCommentsConstans.EDIT_COMMENT_FAILURE:
+    case editCommentsConstants.EDIT_COMMENT_FAILURE:
       return {
         ...state
       };

@@ -2,13 +2,13 @@ import './UserPage.css'
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from "react-redux";
-import { userActions } from "../../../redux/actions";
+import {userActions} from "../../../redux/actions";
 
 function UserPage({ users, getUsers }) {
 
     useEffect(() => {
         getUsers()
-    }, [])
+    }, []);
 
     return (
         <div className="user_list">
@@ -22,11 +22,7 @@ function UserPage({ users, getUsers }) {
                             <ul>
                                <li><span>Name:</span> {user.name}</li>
                                <li><span>Email:</span> {user.email}</li>
-                               <li><span>City:</span> {user.city}</li>
-                               <li><span>Street:</span> {user.street}</li>
-                               <li><span>Phone:</span> {user.phone}</li>
-                               <li><span>Website:</span> {user?.website}</li>
-                               <li><span>Company: </span> {user?.company}</li>
+                               <li><span>Adress:</span> {user.country} {user.city}</li>
                             </ul>
                         </div>
                         <div className='user_list_btn_container'>
