@@ -10,7 +10,6 @@ export const store = createStore(
     rootReducer,
     {},
     composeWithDevTools (
-        applyMiddleware(...middleWare),
+        applyMiddleware(...middleWare, logger)
     ),
-//  logger
 );

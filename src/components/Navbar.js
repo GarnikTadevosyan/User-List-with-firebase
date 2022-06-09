@@ -9,6 +9,7 @@ function Navbar() {
         <ul>
           <li><Link to='/'>Create User</Link></li>
           <li><Link to='/users-list'>User List</Link></li>
+          <li><Link to='/login'>Login</Link></li>
         </ul>
       </div>
     </div>

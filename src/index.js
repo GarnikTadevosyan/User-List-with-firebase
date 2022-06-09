@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import App from './App';
-import FirebaseTester from "./Testers/FirebaseTester";
 import { createTheme } from "@mui/material";
-
+import {store} from "./redux/store";
+import {Provider} from "react-redux";
 
 const theme = createTheme({
   // palette: {
@@ -22,7 +22,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ThemeProvider theme={theme}>
     <StyledEngineProvider injectFirst>
-      <App/>
+        <Provider store={store}>
+           <App/>
+        </Provider>
     </StyledEngineProvider>
   </ThemeProvider>
 );

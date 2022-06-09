@@ -4,7 +4,9 @@ import { NavLink } from 'react-router-dom';
 import { connect } from "react-redux";
 import {userActions} from "../../../redux/actions";
 
-function UserPage({ users, getUsers }) {
+function UserPage({ users, getUsers, authUser }) {
+
+    console.log(authUser.uid);
 
     useEffect(() => {
         getUsers()
@@ -12,9 +14,9 @@ function UserPage({ users, getUsers }) {
 
     return (
         <div className="user_list">
-            {users.map((user) => {
+            {users.map((user, index) => {
                 return (
-                    <div className='user_card' key={user.id}>
+                    <div className='user_card' key={index}>
                           <div className='user_avatar'>
                              <img src='images/avatar.png' />
                           </div>
@@ -22,7 +24,8 @@ function UserPage({ users, getUsers }) {
                             <ul>
                                <li><span>Name:</span> {user.name}</li>
                                <li><span>Email:</span> {user.email}</li>
-                               <li><span>Adress:</span> {user.country} {user.city}</li>
+                               <li><span>Adress:</span> {user?.country} {user?.city}</li>
+                               { user.id == authUser.uid ? <button>Log Out</button> : null }
                             </ul>
                         </div>
                         <div className='user_list_btn_container'>
@@ -50,11 +53,12 @@ function UserPage({ users, getUsers }) {
 const mapStateToProps = state => {
     return {
         users: state.userReducer.users,
+        authUser: state.userReducer.authUser
     };
 };
 
 const mapDispatchToProps = dispatch => ({
-    getUsers: () => dispatch(userActions.getUsers()),
+      getUsers: () => dispatch(userActions.getUsers()),
 });
 
 

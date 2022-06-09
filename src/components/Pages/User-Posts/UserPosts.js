@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {postActions} from "../../../redux/actions";
 import {commentActions} from "../../../redux/actions";
+import {connect} from "react-redux";
 import {useEffect, useState} from 'react';
 import './UserPosts.css';
 import PostComments from "./PostComments/PostComments";
 import AddOrEditCmnt from "./AddOrEditCmnt/AddOrEditCmnt";
 import {useParams} from 'react-router-dom';
-import {connect} from "react-redux";
 import Swal from "sweetalert2";
 import Alert_Modal from "../../Modals/sweetalert2 ";
 /*------------------MUI imports-----------------*/
@@ -124,8 +124,8 @@ function UserPosts({posts, getPosts, getComments, comments, deleteComment, editC
 
 const mapStateToProps = state => {
     return {
-        posts: state.userReducer.posts,
-        comments: state.userReducer.comments
+        posts: state.postReducer.posts,
+        comments: state.commentReducer.comments
     };
 };
 

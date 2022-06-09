@@ -9,7 +9,7 @@ function PhoneNumberSelector () {
     };
     return (
         <div className="phone_selector">
-            <MuiPhoneNumber defaultCountry={"us"} onChange={handleOnChange} />,{phone}
+            <MuiPhoneNumber defaultCountry={"us"} onChange={handleOnChange} />
         </div>
     );
 }

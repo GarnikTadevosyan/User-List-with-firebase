@@ -64,8 +64,8 @@ function UserAlbums({albums, getAlbums, photos, getPhotos, deletePhoto}) {
 
 const mapStateToProps = state => {
     return {
-        albums: state.userReducer.albums,
-        photos: state.userReducer.photos
+        albums: state.albumReducer.albums,
+        photos: state.photoReducer.photos
     };
 };
 

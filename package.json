@@ -17,6 +17,7 @@
     "formik": "^2.2.9",
     "material-ui-phone-number": "^3.0.0",
     "react": "^18.1.0",
+    "react-country-region-selector": "^3.4.0",
     "react-dom": "^18.1.0",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",

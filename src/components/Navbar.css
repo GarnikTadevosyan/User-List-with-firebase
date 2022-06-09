@@ -5,7 +5,7 @@
   }
   .links_container {
         background-color:rgb(48, 43, 43);
-        width:400px;
+        width:fit-content;
         height: 100%;
         padding-top: 15px;
         display: flex;
