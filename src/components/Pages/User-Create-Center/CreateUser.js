@@ -1,5 +1,6 @@
 import React from 'react';
 import './CreateUser.css';
+import { useNavigate } from "react-router-dom";
 //Formik
 import { Formik,Form } from "formik";
 import * as yup from 'yup';
@@ -8,6 +9,8 @@ import Button from "@mui/material/Button";
 import TextField from '@mui/material/TextField';
 import CountryRegionSelector from "./CountryRegionSelector/CountryRegionSelector";
 import PhoneNumberSelector from "./PhoneNumberSelector/PhoneNumberSelector";
+import Link from '@mui/material/Link';
+import MuiTextField from "../../MUI-Styles/MUI-TextField/MUI_TextField";
 //Firebase
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 //Redux
@@ -16,6 +19,8 @@ import {connect} from "react-redux";
 
 
 function CreateUser({addUser}) {
+
+    let navigate = useNavigate();
 
     const initialValues = {
         name:'',
@@ -46,6 +51,7 @@ function CreateUser({addUser}) {
             .string('phone')
     });
 
+
      const handlerSubmit = function (values) {
            const auth = getAuth();
            const authUser = {...values};
@@ -54,12 +60,16 @@ function CreateUser({addUser}) {
            const {email,password} = values;
          createUserWithEmailAndPassword(auth, email, password)
              .then((userCredential) => {
+                 console.log('create start',userCredential)
                    const userUid = userCredential.user.uid;
                    authUser.id = userUid;
                    addUser(authUser);
+                   console.log('add users success',authUser, auth, email, password)
                  signInWithEmailAndPassword(auth, email, password)
                      .then((userCredential) => {
+                         console.log('sigin start',{})
                          const user = userCredential.user;
+                         navigate("/users-list", { replace: true });
                          console.log(user);
                      })
                      .catch((error) => {
@@ -67,6 +77,7 @@ function CreateUser({addUser}) {
                          const errorMessage = error.message;
                          console.log('err code',errorCode);
                          console.log('err message',errorMessage);
+                         navigate("/");
                      });
              })
              .catch((error) => {
@@ -74,21 +85,31 @@ function CreateUser({addUser}) {
                  const errorMessage = error.message;
                  console.log('Create user component',errorCode);
                  console.log('Create user component',errorMessage);
+                 navigate("/");
              });
 
      };
+
+    console.log('Formik',Formik)
+
+     const testChange = (e) => {
+              console.log(e.target.value);
+     }
 
     return (
         <div className='create_user_wrapper'>
             <div className='form_wrapper'>
                 <div className='form_container'>
                     <div className='header'>
+
                         <h1>Registration</h1>
+                        <MuiTextField/>
                     </div>
                     <Formik
                             initialValues={initialValues}
                             onSubmit={handlerSubmit}
                             validationSchema={validationSchema}
+                            validateOnChange={ (e) => testChange(e)}
                     >
                       { formik => {
                           return (
@@ -127,8 +148,8 @@ function CreateUser({addUser}) {
                                       <PhoneNumberSelector
                                           id="phone"
                                           name="phone"
-                                          // phone={formik.values.phone}
-                                          // onChange={formik.handleChange}
+                                          phone={formik.values.phone}
+                                          onChange={formik.handleChange}
                                       />
                                       <TextField
                                           inputProps={{
@@ -161,12 +182,19 @@ function CreateUser({addUser}) {
                                           margin="normal"
                                       />
                                       <Button
+                                          className='reg_btn'
                                           color="primary"
                                           variant="contained"
                                           fullWidth type="submit"
                                           >
                                           Submit
                                       </Button>
+                                      <div className='go_sign_up'>
+                                          <Link
+                                              href="/">
+                                              Sign Up
+                                          </Link>
+                                      </div>
                                   </Form>)
                             }
                       }

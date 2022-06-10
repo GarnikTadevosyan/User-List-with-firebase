@@ -7,7 +7,7 @@ import {photoActions} from "../../../redux/actions";
 import {useEffect, useState} from 'react';
 import AlbumPhotos from "./AlbumPhotos";
 /*------------------MUI imports-----------------*/
-import {Accordion, AccordionSummary, AccordionDetails} from "../../MUI-Styles/MUI_Accordion";
+import {Accordion, AccordionSummary, AccordionDetails} from "../../MUI-Styles/MUI-Accordion/MUI_Accordion";
 import Typography from '@mui/material/Typography';
 
 /*----------------------------------------Component------------------------------------------------*/

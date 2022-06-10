@@ -3,18 +3,30 @@ import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from "react-redux";
 import {userActions} from "../../../redux/actions";
+import {getAuth,signOut} from "@firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function UserPage({ users, getUsers, authUser }) {
-
-    console.log(authUser.uid);
 
     useEffect(() => {
         getUsers()
     }, []);
 
+    let navigate = useNavigate();
+
+    function handleLogOut() {
+             const auth = getAuth();
+             signOut(auth).then( () => {
+                console.log('Sign outed');
+                 navigate("/", { replace: true });
+             }).catch((error) => {
+                 console.log(error);
+             });
+    }
+
     return (
         <div className="user_list">
-            {users.map((user, index) => {
+            {users && users.length > 0 && users.map((user, index) => {
                 return (
                     <div className='user_card' key={index}>
                           <div className='user_avatar'>
@@ -25,7 +37,12 @@ function UserPage({ users, getUsers, authUser }) {
                                <li><span>Name:</span> {user.name}</li>
                                <li><span>Email:</span> {user.email}</li>
                                <li><span>Adress:</span> {user?.country} {user?.city}</li>
-                               { user.id == authUser.uid ? <button>Log Out</button> : null }
+                                {user && authUser &&  authUser.uid && user.id == authUser.uid &&
+                                ( <button
+                                       onClick={ () => handleLogOut(authUser.uid) }
+                                   >
+                                       <b>Log Out</b>
+                                   </button> ) }
                             </ul>
                         </div>
                         <div className='user_list_btn_container'>

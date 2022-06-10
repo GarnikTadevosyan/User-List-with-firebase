@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Formik,Form } from "formik";
 import * as yup from 'yup';
+import { useNavigate } from "react-router-dom";
 
 function Copyright(props) {
     return (
@@ -33,6 +34,8 @@ const theme = createTheme();
 
  function UserLogin () {
 
+     let navigate = useNavigate();
+
      const initialValues = {
          email: '',
          password: '',
@@ -50,11 +53,14 @@ const theme = createTheme();
      });
 
     const handleSubmit = (values) => {
+        console.log(values);
         const auth = getAuth();
         const {email,password} = {...values};
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                console.log('user',user);
+                navigate("/users-list", { replace: true });
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -62,8 +68,8 @@ const theme = createTheme();
                 console.log('err code',errorCode);
                 console.log('err message',errorMessage);
             });
-           values.email = ''
-           values.password = ''
+             values.email = '';
+             values.password = '';
     };
 
     return (
@@ -94,9 +100,7 @@ const theme = createTheme();
                                 return (
                                     <Form>
                                         <TextField
-                                            inputProps={{
-                                                autoComplete: 'off'
-                                            }}
+                                            inputProps={{autoComplete: 'off'}}
                                             margin="normal"
                                             required
                                             fullWidth
@@ -145,13 +149,18 @@ const theme = createTheme();
                         </Formik>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="#" variant="body2">
+                                <Link
+                                    href="#"
+                                    variant="body2">
                                     Forgot password?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                <Link
+                                    href='/sign-up'
+                                    variant="body2"
+                                    >
+                                    Don't have an account? Sign Up
                                 </Link>
                             </Grid>
                         </Grid>

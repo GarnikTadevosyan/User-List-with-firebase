@@ -29,15 +29,16 @@ function getUsers() {
                                                   ADD USER
                                                   ------------------------------------------------------*/
 function addUser(user) {
+    console.log('action',user);
     return dispatch => {
         dispatch(request());
         return userService.addUserInUserList(user)
             .then(response => {
-                dispatch(success( response.data));
+                // dispatch(success( response.data));
             })
             .catch(function (error) {
                 console.log('action',error);
-                dispatch(failure(error.response));
+                // dispatch(failure(error.response));
             })
     };
 
@@ -51,7 +52,6 @@ function addUser(user) {
 function changeAuthUserData(authUser) {
         return dispatch => {
         if (authUser) {
-            console.log('actions',authUser);
             dispatch({ type: changeAuthUser.CHANGE_AUTH_USER_SUCCESS, authUser })
         }
     };

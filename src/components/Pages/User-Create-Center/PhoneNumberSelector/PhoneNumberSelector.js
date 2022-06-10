@@ -5,7 +5,7 @@ function PhoneNumberSelector () {
     const [phone, setPhone] = useState("");
 
     const handleOnChange = value => {
-        setPhone(value);
+          setPhone(value);
     };
     return (
         <div className="phone_selector">

@@ -13,24 +13,27 @@ import {getAuth, onAuthStateChanged} from "@firebase/auth";
 import {userActions} from "./redux/actions";
 
 function App ({changeAuthUserData}) {
+
         const auth = getAuth();
         const currentUser = auth.currentUser;
         onAuthStateChanged(auth, (user) => {
-            const {accessToken,email,uid} = user;
+            console.log('authState',user);
             if (!!user) {
+                const {accessToken,email,uid} = user;
                 changeAuthUserData({accessToken,email,uid});
             } else {
                 changeAuthUserData(null);
             }
         });
 
+
     return (
     <BrowserRouter>
         <div>
           <Navbar/>
         <Routes>
-          <Route path="" element={<CreateUser/>} />
-          <Route path="/login" element={<UserLogin/>} />
+          <Route path="" element={<UserLogin />} />
+          <Route path="/sign-up" element={<CreateUser/>} />
           <Route path="/users-list" element={<UserPage />} />
           <Route path='/posts/:id' element={<UserPosts />} />
           <Route path='/albums/:id' element={<UserAlbums/>} />
@@ -43,7 +46,7 @@ function App ({changeAuthUserData}) {
 
 
 const mapDispatchToProps = dispatch => ({
-      changeAuthUserData:(user) => dispatch(userActions.changeAuthUserData( user))
+      changeAuthUserData:(user) => dispatch(userActions.changeAuthUserData( user ))
 });
 
 

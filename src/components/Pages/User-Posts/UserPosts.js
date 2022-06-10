@@ -10,7 +10,7 @@ import {useParams} from 'react-router-dom';
 import Swal from "sweetalert2";
 import Alert_Modal from "../../Modals/sweetalert2 ";
 /*------------------MUI imports-----------------*/
-import {Accordion, AccordionSummary, AccordionDetails} from "../../MUI-Styles/MUI_Accordion";
+import {Accordion, AccordionSummary, AccordionDetails} from "../../MUI-Styles/MUI-Accordion/MUI_Accordion";
 import Typography from '@mui/material/Typography';
 
 function UserPosts({posts, getPosts, getComments, comments, deleteComment, editComment, addComment}) {
