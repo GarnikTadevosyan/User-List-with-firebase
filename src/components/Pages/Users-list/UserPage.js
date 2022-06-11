@@ -37,6 +37,7 @@ function UserPage({ users, getUsers, authUser }) {
                                <li><span>Name:</span> {user.name}</li>
                                <li><span>Email:</span> {user.email}</li>
                                <li><span>Adress:</span> {user?.country} {user?.city}</li>
+                               <li><span>Phone:</span> {user?.phoneNumber}</li>
                                 {user && authUser &&  authUser.uid && user.id == authUser.uid &&
                                 ( <button
                                        onClick={ () => handleLogOut(authUser.uid) }

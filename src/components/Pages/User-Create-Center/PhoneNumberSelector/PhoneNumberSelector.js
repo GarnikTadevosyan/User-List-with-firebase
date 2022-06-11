@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import MuiPhoneNumber from 'material-ui-phone-number';
 
-function PhoneNumberSelector () {
-    const [phone, setPhone] = useState("");
-
-    const handleOnChange = value => {
-          setPhone(value);
-    };
+function PhoneNumberSelector ({phone,handleChange}) {
     return (
         <div className="phone_selector">
-            <MuiPhoneNumber defaultCountry={"us"} onChange={handleOnChange} />
+            <MuiPhoneNumber
+                defaultCountry={"us"}
+                phone={phone}
+                onChange={handleChange} />
         </div>
     );
 }

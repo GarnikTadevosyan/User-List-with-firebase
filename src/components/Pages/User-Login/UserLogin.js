@@ -53,13 +53,11 @@ const theme = createTheme();
      });
 
     const handleSubmit = (values) => {
-        console.log(values);
         const auth = getAuth();
         const {email,password} = {...values};
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log('user',user);
                 navigate("/users-list", { replace: true });
             })
             .catch((error) => {

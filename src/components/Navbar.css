@@ -20,3 +20,11 @@
   .links_container a {
         color: #fff;
   }
+  .data_loader {
+      background-color: #636363;
+      border: none;
+      border-radius: 1px;
+      color: #fff;
+      width:200%;
+      height: 20px;
+  }

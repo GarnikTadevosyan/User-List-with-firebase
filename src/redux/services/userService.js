@@ -15,6 +15,15 @@ export const userService = {
       editUserComment,
       addUserComment,
 };
+/*-----------------------------------JSON PLACEHOLDER COMBINE CALLS-------------------------------------------*/
+function combineCalls () {
+         return (
+               return axios.get(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
+        .then(res => res)
+         )
+}
+
+
 /*----------------------------------------------------USER CALLS-------------------------------------------*/
 function getUserList ()  {
          return getDocs(userCollectionHref)

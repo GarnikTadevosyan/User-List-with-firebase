@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { Formik,Form } from "formik";
 import * as yup from 'yup';
 //MUI
-import Button from "@mui/material/Button";
-import TextField from '@mui/material/TextField';
 import CountryRegionSelector from "./CountryRegionSelector/CountryRegionSelector";
-import PhoneNumberSelector from "./PhoneNumberSelector/PhoneNumberSelector";
+import MuiPhoneNumber from "material-ui-phone-number";
+import {CountryDropdown, RegionDropdown} from "react-country-region-selector";
+import './CountryRegionSelector/CountryRegionSelector.css'
 import Link from '@mui/material/Link';
-import MuiTextField from "../../MUI-Styles/MUI-TextField/MUI_TextField";
+import TextField from '@mui/material/TextField';
+import Button from "@mui/material/Button";
 //Firebase
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 //Redux
@@ -26,7 +27,8 @@ function CreateUser({addUser}) {
         name:'',
         email: '',
         country:'',
-        phone:'',
+        region:'',
+        phoneNumber:'',
         password: '',
         confirmPassword: '',
     };
@@ -46,31 +48,24 @@ function CreateUser({addUser}) {
         confirmPassword: yup
             .string('Confirm your password')
             .oneOf([yup.ref('password'), 'Password must much'])
-            .required('required'),
-        phone: yup
-            .string('phone')
+            .required('required')
     });
-
 
      const handlerSubmit = function (values) {
            const auth = getAuth();
            const authUser = {...values};
            delete authUser.password;
            delete authUser.confirmPassword;
-           const {email,password} = values;
-         createUserWithEmailAndPassword(auth, email, password)
+           const {email,password,phoneNumber,country} = values;
+         createUserWithEmailAndPassword(auth, email, password,phoneNumber,country)
              .then((userCredential) => {
-                 console.log('create start',userCredential)
                    const userUid = userCredential.user.uid;
                    authUser.id = userUid;
                    addUser(authUser);
-                   console.log('add users success',authUser, auth, email, password)
                  signInWithEmailAndPassword(auth, email, password)
                      .then((userCredential) => {
-                         console.log('sigin start',{})
                          const user = userCredential.user;
                          navigate("/users-list", { replace: true });
-                         console.log(user);
                      })
                      .catch((error) => {
                          const errorCode = error.code;
@@ -90,26 +85,17 @@ function CreateUser({addUser}) {
 
      };
 
-    console.log('Formik',Formik)
-
-     const testChange = (e) => {
-              console.log(e.target.value);
-     }
-
     return (
         <div className='create_user_wrapper'>
             <div className='form_wrapper'>
                 <div className='form_container'>
                     <div className='header'>
-
                         <h1>Registration</h1>
-                        <MuiTextField/>
                     </div>
                     <Formik
                             initialValues={initialValues}
                             onSubmit={handlerSubmit}
                             validationSchema={validationSchema}
-                            validateOnChange={ (e) => testChange(e)}
                     >
                       { formik => {
                           return (
@@ -144,12 +130,20 @@ function CreateUser({addUser}) {
                                           variant="standard"
                                           margin="normal"
                                       />
-                                      <CountryRegionSelector/>
-                                      <PhoneNumberSelector
-                                          id="phone"
-                                          name="phone"
-                                          phone={formik.values.phone}
-                                          onChange={formik.handleChange}
+                                      <div>
+                                          <CountryDropdown
+                                              value={formik.values.country}
+                                              onChange={e => formik.setFieldValue("country", e)}
+                                          />{" "}
+                                          <RegionDropdown
+                                              country={formik.values.country}
+                                              value={formik.values.region}
+                                              onChange={e => formik.setFieldValue("region", e)}
+                                          />
+                                      </div>
+                                      <MuiPhoneNumber
+                                          defaultCountry={"us"}
+                                          onChange={e => formik.setFieldValue("phoneNumber", e)}
                                       />
                                       <TextField
                                           inputProps={{
@@ -186,7 +180,7 @@ function CreateUser({addUser}) {
                                           color="primary"
                                           variant="contained"
                                           fullWidth type="submit"
-                                          >
+                                      >
                                           Submit
                                       </Button>
                                       <div className='go_sign_up'>

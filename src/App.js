@@ -17,7 +17,6 @@ function App ({changeAuthUserData}) {
         const auth = getAuth();
         const currentUser = auth.currentUser;
         onAuthStateChanged(auth, (user) => {
-            console.log('authState',user);
             if (!!user) {
                 const {accessToken,email,uid} = user;
                 changeAuthUserData({accessToken,email,uid});

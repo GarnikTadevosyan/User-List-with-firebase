@@ -29,7 +29,6 @@ function getUsers() {
                                                   ADD USER
                                                   ------------------------------------------------------*/
 function addUser(user) {
-    console.log('action',user);
     return dispatch => {
         dispatch(request());
         return userService.addUserInUserList(user)
