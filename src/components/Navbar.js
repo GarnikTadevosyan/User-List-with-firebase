@@ -1,12 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Navbar.css'
+import {connect} from "react-redux";
+import {allDataActions} from "../redux/actions";
 
-function Navbar () {
+function Navbar ({getAllData}) {
 
-    const handleClick = () => {
+    function handleClick () {
 
-    };
+        const urls = [
+            {group:'posts',srcPath:'https://jsonplaceholder.typicode.com/posts'},
+            {group:'comments',srcPath:'https://jsonplaceholder.typicode.com/comments'},
+           // {group:'albums',srcPath:'https://jsonplaceholder.typicode.com/albums'},
+           // {group:'photos',srcPath:'https://jsonplaceholder.typicode.com/photos'},
+        ];
+        urls.map(url => {
+            getAllData(url);
+        })
+
+    }
 
   return (
     <div className='navbar'>
@@ -16,7 +28,7 @@ function Navbar () {
           <li>
               <button
                   className='data_loader'
-                  onClick={handleClick}>
+                  onClick={ () => handleClick()}>
                   Load Data
               </button>
           </li>
@@ -26,4 +38,14 @@ function Navbar () {
   )
 }
 
-export default Navbar;
+const mapStateToProps = state => {
+    return {
+        allData: state.allDataReducer.allData
+    };
+};
+
+const mapDispatchToProps = dispatch => ({
+    getAllData: (url) => dispatch(allDataActions.getAllData(url))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

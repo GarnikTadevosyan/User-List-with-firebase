@@ -1,6 +1,6 @@
 import axios from "axios";
 import {collection,getDocs,addDoc} from 'firebase/firestore';
-import {db} from "./firebaseService/firebaseConfig";
+import {db} from "../firebaseService/firebaseConfig";
 const userCollectionHref = collection(db,'users');
 
 export const userService = {
@@ -14,23 +14,27 @@ export const userService = {
       deleteUserComment,
       editUserComment,
       addUserComment,
+      combineApiCalls
 };
 /*-----------------------------------JSON PLACEHOLDER COMBINE CALLS-------------------------------------------*/
-function combineCalls () {
-         return (
-               return axios.get(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
-        .then(res => res)
-         )
-}
 
+ function combineApiCalls (url) {
+          return axios.get(url.srcPath)
+              .then( result => {
+                      let data = {data:[...result.data],group:url.group};
+                      return data
+              })
+}
 
 /*----------------------------------------------------USER CALLS-------------------------------------------*/
+
 function getUserList ()  {
          return getDocs(userCollectionHref)
-                .then( (users) => {
-                    return  {data:users.docs.map( (doc) => ({...doc.data()}) ) }
-                });
+        .then( (users) => {
+            return  {data:users.docs.map( (doc) => ({...doc.data()}) ) }
+        });
 }
+
 function addUserInUserList(user) {
          return addDoc(userCollectionHref,user)
                  .then( (user) => {

@@ -76,7 +76,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-      getUsers: () => dispatch(userActions.getUsers()),
+      getUsers: () => dispatch(userActions.getUsers())
 });
 
 
