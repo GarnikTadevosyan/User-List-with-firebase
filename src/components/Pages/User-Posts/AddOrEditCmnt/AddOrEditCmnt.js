@@ -28,7 +28,7 @@ function AddOrEditCmnt({activeComment,commentValue,handleChange,addOrEditComment
     return (
         <div className='cmnt_add_edit_container' >
             <div>
-              {activeComment?.id && <b>{activeComment.email}</b>}
+                {activeComment?.id && <b>{activeComment.email}</b>}
             </div><br/>
             <CssTextField
                 label='write comment'

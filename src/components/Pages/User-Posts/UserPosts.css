@@ -6,8 +6,7 @@
     min-height: 100vh;
 }
 .post_shower {
-    display: flex;
-    justify-content:space-between;
+
 }
 .posts_container {
     width:100%;

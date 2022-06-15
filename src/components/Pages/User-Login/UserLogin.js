@@ -58,6 +58,7 @@ const theme = createTheme();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                console.log('Sig in',user);
                 navigate("/users-list", { replace: true });
             })
             .catch((error) => {

@@ -10,7 +10,7 @@ function getUserAlbums(id) {
     dispatch(request());
     return userService.getUserAlbums(id)
     .then(response => {
-      dispatch(success(response.data));
+      dispatch(success(response));
     })
     .catch(function (error) {
       dispatch(failure(error.response));

@@ -1,12 +1,17 @@
 import axios from "axios";
-import {collection,getDocs,addDoc} from 'firebase/firestore';
+import {collection,getDocs,addDoc,doc,setDoc,query,where} from 'firebase/firestore';
 import {db} from "../firebaseService/firebaseConfig";
+/* ID generator*/
+import { nanoid } from 'nanoid'
+/////////////////////////////////////
 const userCollectionHref = collection(db,'users');
+const postCollectionHref = collection(db,'posts');
 
 export const userService = {
       getUserList,
       addUserInUserList,
       getUserPosts,
+      addUserPost,
       getUserComments,
       getUserAlbums,
       getUserPhotos,
@@ -18,12 +23,8 @@ export const userService = {
 };
 /*-----------------------------------JSON PLACEHOLDER COMBINE CALLS-------------------------------------------*/
 
- function combineApiCalls (url) {
-          return axios.get(url.srcPath)
-              .then( result => {
-                      let data = {data:[...result.data],group:url.group};
-                      return data
-              })
+function combineApiCalls () {
+         console.log('void function');
 }
 
 /*----------------------------------------------------USER CALLS-------------------------------------------*/
@@ -36,24 +37,36 @@ function getUserList ()  {
 }
 
 function addUserInUserList(user) {
-         return addDoc(userCollectionHref,user)
+         return setDoc(doc(userCollectionHref, user.id), user)
                  .then( (user) => {
                      return  {data:user}
                  }).catch( err => console.log('service',err));
 }
-
 /*----------------------------------------------------POST CALLS-------------------------------------------*/
 
-function getUserPosts (userId) { 
-         return axios.get(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
-        .then(res => res)
+async function getUserPosts (userId) {
+               const data = [];
+               const q = query(collection(db, "posts"), where("userId", "==", userId));
+               const querySnapshot = await getDocs(q);
+               querySnapshot.forEach((doc) => {
+               data.push(doc.data()) });
+               return data
+}
+async function addUserPost (post) {
+               let randomPath = nanoid(20);
+               post.id = randomPath;
+               setDoc(doc(postCollectionHref, randomPath), post);
 }
 
 /*----------------------------------------------------COMMENT CALLS-------------------------------------------*/
 
-function getUserComments (postId) { 
-         return axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}/comments`)
-         .then(res => res)
+async function getUserComments (postId) {
+               const data = [];
+               const q = query(collection(db, "comments"), where("postId", "==", postId));
+               const querySnapshot = await getDocs(q);
+               querySnapshot.forEach((doc) => {
+                              data.push(doc.data()) });
+               return data
 }
 function deleteUserComment(toDeleteCommentId) {
     return axios.delete(`https://jsonplaceholder.typicode.com/comments/${toDeleteCommentId}`)
@@ -71,16 +84,24 @@ function addUserComment(toAddComment) {
 
 /*----------------------------------------------------ALBUM CALLS-------------------------------------------*/
 
-function getUserAlbums (albumId) {
-         return axios.get(`https://jsonplaceholder.typicode.com/users/${albumId}/albums`)
-         .then(res => res)
+async function getUserAlbums (albumId) {
+               const data = [];
+               const q = query(collection(db, "albums"), where("userId", "==", albumId));
+               const querySnapshot = await getDocs(q);
+               querySnapshot.forEach((doc) => {
+               data.push(doc.data()) });
+               return data
 }
 
 /*----------------------------------------------------PHOTO CALLS-------------------------------------------*/
 
-function getUserPhotos (albumId) {
-      return axios.get(`https://jsonplaceholder.typicode.com/albums/${albumId}/photos`)
-      .then(res => res)
+async function getUserPhotos (albumId) {
+                const data = [];
+                const q = query(collection(db, "photos"), where("albumId", "==", albumId));
+                const querySnapshot = await getDocs(q);
+                querySnapshot.forEach((doc) => {
+                data.push(doc.data()) });
+                return data
 }
 function deleteUserPhoto (photoId) {
     return axios.delete(`https://jsonplaceholder.typicode.com/photos/${photoId}`)

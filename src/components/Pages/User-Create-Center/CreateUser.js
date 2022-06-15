@@ -60,6 +60,8 @@ function CreateUser({addUser}) {
          createUserWithEmailAndPassword(auth, email, password,phoneNumber,country)
              .then((userCredential) => {
                    const userUid = userCredential.user.uid;
+                   console.log('userCredential',userCredential);
+                   console.log('userCredential',userCredential.user);
                    authUser.id = userUid;
                    addUser(authUser);
                  signInWithEmailAndPassword(auth, email, password)

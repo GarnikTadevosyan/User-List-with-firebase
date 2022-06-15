@@ -3,10 +3,10 @@ from '../../constants/comment-Constant/commentActionTypes';
 import {userService} from '../../services';
 
 export const commentActions = {
-       getUserComments,
-       deleteUserComment,
-       editUserComment,
-       addUserComment,
+             getUserComments,
+             deleteUserComment,
+             editUserComment,
+             addUserComment,
 };
 
 function getUserComments(id) {
@@ -14,7 +14,7 @@ function getUserComments(id) {
     dispatch(request());
     return userService.getUserComments(id)
     .then(response => {
-      dispatch(success(response.data));
+      dispatch(success(response));
     })
     .catch(function (error) {
       dispatch(failure(error.response));

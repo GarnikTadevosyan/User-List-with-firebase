@@ -4,6 +4,7 @@ const initialState = {
     loading: false,
     authUser: null,
     posts: [],
+    post:null
 };
 
 export function postReducer(state = initialState, payload) {
@@ -22,6 +23,21 @@ export function postReducer(state = initialState, payload) {
             return {
                 ...state,
                 posts: [],
+                error: payload.error,
+            };
+        case userPostsConstants.ADD_POST_REQUEST:
+            return {
+                ...state
+            };
+        case userPostsConstants.ADD_POST_SUCCESS:
+            return {
+                ...state,
+                post: payload.post,
+            };
+        case userPostsConstants.ADD_POST_FAILURE:
+            return {
+                ...state,
+                post:null,
                 error: payload.error,
             };
         default:
